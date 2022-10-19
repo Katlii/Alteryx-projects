@@ -1,0 +1,2218 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2020.4">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="174" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="FileName">V:\Shared drives\CZ CZ-FTS\07_Python_Projects\API_north_data\KZ\DATA_DE\output_Deutsche Börse AG.txt</File>
+          <FormatSpecificOptions>
+            <HeaderRow>False</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>False</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>1000000000</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <Delimeter>\0</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>output_Deutsche Börse AG.txt</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.JSONParse.JSONParse">
+        <Position x="318" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <JSON_Field>Field_1</JSON_Field>
+          <IncludeInOutput value="False" />
+          <SingleField value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FileName" size="254" source="File: FileName" type="V_WString" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJSONParse" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextToColumns.TextToColumns">
+        <Position x="510" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Field>JSON_Name</Field>
+          <ErrorHandling>Last</ErrorHandling>
+          <RootName>Name_</RootName>
+          <Delimeters value="." />
+          <NumFields value="6" />
+          <Flags value="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FileName" size="254" source="File: FileName" type="V_WString" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextToColumns" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="510" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="REGEX_CountMatches([JSON_Name], '\.')" field="JSON_NAME_COUNT" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[JSON_NAME_COUNT = REGEX_CountMatches([JSON_Name], '\.')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="FileName" size="254" source="File: FileName" type="V_WString" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field name="JSON_NAME_COUNT" size="1073741823" source="Formula: REGEX_CountMatches([JSON_Name], '\.')" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="678" y="90" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="JSON_NAME_COUNT" action="Max" rename="Max_JSON_NAME_COUNT" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Max_JSON_NAME_COUNT" size="1073741823" source="Formula: REGEX_CountMatches([JSON_Name], '\.')" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="642" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="FileName" selected="True" rename="Company" />
+            <SelectField field="JSON_Name" selected="True" />
+            <SelectField field="Name_1" selected="True" />
+            <SelectField field="Name_2" selected="True" />
+            <SelectField field="Name_3" selected="True" />
+            <SelectField field="Name_4" selected="True" />
+            <SelectField field="Name_5" selected="True" />
+            <SelectField field="Name_6" selected="True" />
+            <SelectField field="JSON_ValueString" selected="True" rename="Value" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Company" size="254" source="File: FileName" type="V_WString" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field name="Value" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.ControlParam.ControlParam">
+        <Position x="54" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Control Parameter (53)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="90" y="132" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Update Value</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="798" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="Replace([Company], 'output_', '')" field="Company" size="254" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Company = Replace([Company], 'output_', '')
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Company" size="254" source="Formula: Replace([Company], 'output_', '')" type="V_WString" />
+            <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field description="TextToColumns: Parsed from JSON_Name" name="Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+            <Field name="Value" size="1073741823" source="JSONParse: " type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1013" y="209" width="121" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Output</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="51">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="1038" y="258" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="25">V:\Shared drives\CZ CZ-FTS\07_Python_Projects\API_north_data_DE\MS\02_OUTPUT\output.xlsx|||Sheet1</File>
+              <Passwords />
+              <FormatSpecificOptions>
+                <PreserveFormat>False</PreserveFormat>
+                <SkipFieldNames>False</SkipFieldNames>
+                <OutputOption>Append</OutputOption>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>output.xlsx
+Query=Sheet1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1158" y="522" width="152" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 49</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="True" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1182" y="594" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>Contains</Operator>
+                <Field>JSON_Name</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-08-18 11:41:02</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>items</Operand>
+                  <StartDate>2022-08-18 11:41:02</StartDate>
+                  <EndDate>2022-08-18 11:41:02</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Contains([JSON_Name],"items")</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1302" y="582" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>Contains</Operator>
+                <Field>JSON_Name_2</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-08-18 11:42:00</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>items</Operand>
+                  <StartDate>2022-08-18 11:42:00</StartDate>
+                  <EndDate>2022-08-18 11:42:00</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Contains([JSON_Name_2],"items")</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1422" y="570" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields>
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_3" />
+              </GroupFields>
+              <HeaderField field="JSON_Name_4" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="company" size="2048" source="CrossTab:Header:JSON_Name_4:company:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_4:date:Concat:" type="V_WString" />
+                <Field name="description" size="2048" source="CrossTab:Header:JSON_Name_4:description:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_4:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_4:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_4:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_4:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_4:note:Concat:" type="V_WString" />
+                <Field name="person" size="2048" source="CrossTab:Header:JSON_Name_4:person:Concat:" type="V_WString" />
+                <Field name="roles" size="2048" source="CrossTab:Header:JSON_Name_4:roles:Concat:" type="V_WString" />
+                <Field name="type" size="2048" source="CrossTab:Header:JSON_Name_4:type:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_4:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_4:value:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_3" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="16">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1422" y="678" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields>
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+                <Field field="JSON_Name_5" />
+              </GroupFields>
+              <HeaderField field="JSON_Name_6" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_6:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_6:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_6:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_6:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_6:note:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_6:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_6:value:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_2" order="Asc" />
+                <Field field="JSON_Name_3" order="Asc" />
+                <Field field="JSON_Name_5" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="17">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1530" y="570" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[JSON_Name_1] + &quot;_&quot; + [JSON_Name_3]" field="entity_name" size="1073741823" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[entity_name = [JSON_Name_1] + "_" + [JSON_Name_3]
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="company" size="2048" source="CrossTab:Header:JSON_Name_4:company:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_4:date:Concat:" type="V_WString" />
+                <Field name="description" size="2048" source="CrossTab:Header:JSON_Name_4:description:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_4:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_4:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_4:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_4:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_4:note:Concat:" type="V_WString" />
+                <Field name="person" size="2048" source="CrossTab:Header:JSON_Name_4:person:Concat:" type="V_WString" />
+                <Field name="roles" size="2048" source="CrossTab:Header:JSON_Name_4:roles:Concat:" type="V_WString" />
+                <Field name="type" size="2048" source="CrossTab:Header:JSON_Name_4:type:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_4:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_4:value:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_3]" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_3" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1530" y="678" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3] + &quot;.&quot; + [JSON_Name_5]" field="entity_name" size="1073741823" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>entity_name = [JSON_Name_1] + "_" + [JSON_Name_2] + "_" + [JSON_Name_3] + "." + ...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_6:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_6:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_6:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_6:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_6:note:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_6:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_6:value:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3] + &quot;.&quot; + [JSON_Name_5]" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_2" order="Asc" />
+                <Field field="JSON_Name_3" order="Asc" />
+                <Field field="JSON_Name_5" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1326" y="822" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression>REGEX_Match([JSON_Name_3], '\d+')</Expression>
+              <Mode>Custom</Mode>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>REGEX_Match([JSON_Name_3], '\d+')</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1626" y="810" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields>
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </GroupFields>
+              <HeaderField field="JSON_Name_5" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_5:auditorName:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_5:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_5:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_5:formattedValue:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_5:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_5:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_5:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_5:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_5:postalCode:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_5:publicationTitle:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_5:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_5:street:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_2" order="Asc" />
+                <Field field="JSON_Name_3" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1410" y="810" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="JSON_Name_6" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1506" y="810" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="if IsNull([JSON_Name_5]) then [JSON_Name_4]&#xA;else [JSON_Name_5]&#xA;endif" field="JSON_Name_5" size="1073741823" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>JSON_Name_5 = if IsNull([JSON_Name_5]) then [JSON_Name_4]
+else [JSON_Name_5]
+end...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="Formula: if IsNull([JSON_Name_5]) then [JSON_Name_4]&#xA;else [JSON_Name_5]&#xA;endif" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1830" y="810" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3]" field="entity_name" size="1073741823" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[entity_name = [JSON_Name_1] + "_" + [JSON_Name_2] + "_" + [JSON_Name_3]
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_5:auditorName:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_5:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_5:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_5:formattedValue:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_5:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_5:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_5:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_5:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_5:postalCode:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_5:publicationTitle:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_5:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_5:street:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3]" type="V_WString" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="29">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1650" y="570" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="JSON_Name_1" selected="False" />
+                <SelectField field="JSON_Name_3" selected="False" />
+                <SelectField field="entity_name" selected="True" />
+                <SelectField field="name" selected="True" />
+                <SelectField field="company" selected="True" />
+                <SelectField field="date" selected="True" />
+                <SelectField field="description" selected="True" />
+                <SelectField field="estimate" selected="True" />
+                <SelectField field="formattedValue" selected="True" />
+                <SelectField field="id" selected="True" />
+                <SelectField field="note" selected="True" />
+                <SelectField field="person" selected="True" />
+                <SelectField field="roles" selected="True" />
+                <SelectField field="type" selected="True" />
+                <SelectField field="unit" selected="True" />
+                <SelectField field="value" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_3]" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_4:name:Concat:" type="V_WString" />
+                <Field name="company" size="2048" source="CrossTab:Header:JSON_Name_4:company:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_4:date:Concat:" type="V_WString" />
+                <Field name="description" size="2048" source="CrossTab:Header:JSON_Name_4:description:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_4:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_4:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_4:id:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_4:note:Concat:" type="V_WString" />
+                <Field name="person" size="2048" source="CrossTab:Header:JSON_Name_4:person:Concat:" type="V_WString" />
+                <Field name="roles" size="2048" source="CrossTab:Header:JSON_Name_4:roles:Concat:" type="V_WString" />
+                <Field name="type" size="2048" source="CrossTab:Header:JSON_Name_4:type:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_4:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_4:value:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="30">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1806" y="678" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="JSON_Name_1" selected="False" />
+                <SelectField field="JSON_Name_2" selected="False" />
+                <SelectField field="JSON_Name_3" selected="False" />
+                <SelectField field="JSON_Name_5" selected="False" />
+                <SelectField field="entity_name" selected="True" />
+                <SelectField field="name" selected="True" />
+                <SelectField field="estimate" selected="True" />
+                <SelectField field="formattedValue" selected="True" />
+                <SelectField field="id" selected="True" />
+                <SelectField field="note" selected="True" />
+                <SelectField field="unit" selected="True" />
+                <SelectField field="value" selected="True" />
+                <SelectField field="consolidated" selected="True" />
+                <SelectField field="date" selected="True" />
+                <SelectField field="formattedDate" selected="True" />
+                <SelectField field="publicationDate" selected="True" />
+                <SelectField field="publicationId" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3] + &quot;.&quot; + [JSON_Name_5]" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_6:name:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_6:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_6:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_6:id:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_6:note:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_6:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_6:value:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="31">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1950" y="810" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="JSON_Name_1" selected="False" />
+                <SelectField field="JSON_Name_2" selected="False" />
+                <SelectField field="JSON_Name_3" selected="False" />
+                <SelectField field="entity_name" selected="True" />
+                <SelectField field="name" selected="True" />
+                <SelectField field="auditorName" selected="True" />
+                <SelectField field="city" selected="True" />
+                <SelectField field="consolidated" selected="True" />
+                <SelectField field="country" selected="True" />
+                <SelectField field="date" selected="True" />
+                <SelectField field="formattedDate" selected="True" />
+                <SelectField field="formattedValue" selected="True" />
+                <SelectField field="lat" selected="True" />
+                <SelectField field="legalForm" selected="True" />
+                <SelectField field="lng" selected="True" />
+                <SelectField field="postalCode" selected="True" />
+                <SelectField field="publicationDate" selected="True" />
+                <SelectField field="publicationId" selected="True" />
+                <SelectField field="publicationTitle" selected="True" />
+                <SelectField field="state" selected="True" />
+                <SelectField field="street" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3]" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_5:name:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_5:auditorName:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_5:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_5:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_5:formattedValue:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_5:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_5:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_5:lng:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_5:postalCode:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_5:publicationTitle:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_5:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_5:street:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="33">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1422" y="1026" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsNotNull</Operator>
+                <Field>JSON_Name_3</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-08-18 13:14:34</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>
+                  </Operand>
+                  <StartDate>2022-08-18 13:14:34</StartDate>
+                  <EndDate>2022-08-18 13:14:34</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!IsNull([JSON_Name_3])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="34">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1530" y="1086" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>IsNotNull</Operator>
+                <Field>JSON_Name_2</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-08-18 13:14:38</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>
+                  </Operand>
+                  <StartDate>2022-08-18 13:14:38</StartDate>
+                  <EndDate>2022-08-18 13:14:38</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!IsNull([JSON_Name_2])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="JSON_Name" size="1073741823" source="JSONParse: " type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_4" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_6" size="1073741823" source="TextToColumns: Parsed from JSON_Name" type="V_WString" />
+                <Field name="JSON_ValueString" size="1073741823" source="JSONParse: " type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1626" y="1014" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields>
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+              </GroupFields>
+              <HeaderField field="JSON_Name_3" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_3:auditorName:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_3:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_3:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_3:publicationTitle:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+                <Field field="JSON_Name_2" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1626" y="1074" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields>
+                <Field field="JSON_Name_1" />
+              </GroupFields>
+              <HeaderField field="JSON_Name_2" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_2:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_2:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_2:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_2:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_2:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_2:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_2:id:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_2:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_2:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_2:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_2:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_2:postalCode:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_2:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_2:street:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="37">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+            <Position x="1626" y="1158" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupFields />
+              <HeaderField field="JSON_Name_1" />
+              <DataField field="JSON_ValueString" />
+              <Methods>
+                <Method method="Concat" />
+                <Separator>,</Separator>
+                <FieldSize value="2048" />
+              </Methods>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="elfCode" size="2048" source="CrossTab:Header:JSON_Name_1:elfCode:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_1:id:Concat:" type="V_WString" />
+                <Field name="lei" size="2048" source="CrossTab:Header:JSON_Name_1:lei:Concat:" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="CrossTab:Header:JSON_Name_1:northDataUrl:Concat:" type="V_WString" />
+                <Field name="status" size="2048" source="CrossTab:Header:JSON_Name_1:status:Concat:" type="V_WString" />
+                <Field name="subject" size="2048" source="CrossTab:Header:JSON_Name_1:subject:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="2382" y="642" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="company" size="2048" source="CrossTab:Header:JSON_Name_4:company:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="description" size="2048" source="CrossTab:Header:JSON_Name_4:description:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="person" size="2048" source="CrossTab:Header:JSON_Name_4:person:Concat:" type="V_WString" />
+                <Field name="roles" size="2048" source="CrossTab:Header:JSON_Name_4:roles:Concat:" type="V_WString" />
+                <Field name="type" size="2048" source="CrossTab:Header:JSON_Name_4:type:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+                <Field name="elfCode" size="2048" source="CrossTab:Header:JSON_Name_1:elfCode:Concat:" type="V_WString" />
+                <Field name="lei" size="2048" source="CrossTab:Header:JSON_Name_1:lei:Concat:" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="CrossTab:Header:JSON_Name_1:northDataUrl:Concat:" type="V_WString" />
+                <Field name="status" size="2048" source="CrossTab:Header:JSON_Name_1:status:Concat:" type="V_WString" />
+                <Field name="subject" size="2048" source="CrossTab:Header:JSON_Name_1:subject:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="2502" y="642" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="0">
+                <Field field="entity_name" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>entity_name - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="(Multiple Sources)" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="company" size="2048" source="CrossTab:Header:JSON_Name_4:company:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="description" size="2048" source="CrossTab:Header:JSON_Name_4:description:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="person" size="2048" source="CrossTab:Header:JSON_Name_4:person:Concat:" type="V_WString" />
+                <Field name="roles" size="2048" source="CrossTab:Header:JSON_Name_4:roles:Concat:" type="V_WString" />
+                <Field name="type" size="2048" source="CrossTab:Header:JSON_Name_4:type:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab: (Multiple Sources)" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+                <Field name="elfCode" size="2048" source="CrossTab:Header:JSON_Name_1:elfCode:Concat:" type="V_WString" />
+                <Field name="lei" size="2048" source="CrossTab:Header:JSON_Name_1:lei:Concat:" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="CrossTab:Header:JSON_Name_1:northDataUrl:Concat:" type="V_WString" />
+                <Field name="status" size="2048" source="CrossTab:Header:JSON_Name_1:status:Concat:" type="V_WString" />
+                <Field name="subject" size="2048" source="CrossTab:Header:JSON_Name_1:subject:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo locale="0">
+                <Field field="entity_name" order="Ascending" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1710" y="762" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_JSON_Name_1" selected="False" rename="Right_JSON_Name_1" input="Right_" />
+                    <SelectField field="Right_JSON_Name_2" selected="False" rename="Right_JSON_Name_2" input="Right_" />
+                    <SelectField field="Right_JSON_Name_3" selected="False" rename="Right_JSON_Name_3" input="Right_" />
+                    <SelectField field="Right_auditorName" selected="False" input="Right_" />
+                    <SelectField field="Right_city" selected="False" input="Right_" />
+                    <SelectField field="Right_country" selected="False" input="Right_" />
+                    <SelectField field="Right_formattedValue" selected="False" rename="Right_formattedValue" input="Right_" />
+                    <SelectField field="Right_lat" selected="False" input="Right_" />
+                    <SelectField field="Right_legalForm" selected="False" input="Right_" />
+                    <SelectField field="Right_lng" selected="False" input="Right_" />
+                    <SelectField field="Right_name" selected="False" rename="Right_name" input="Right_" />
+                    <SelectField field="Right_postalCode" selected="False" input="Right_" />
+                    <SelectField field="Right_publicationTitle" selected="False" input="Right_" />
+                    <SelectField field="Right_state" selected="False" input="Right_" />
+                    <SelectField field="Right_street" selected="False" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_6:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_6:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_6:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_6:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_6:note:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_6:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_6:value:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3] + &quot;.&quot; + [JSON_Name_5]" type="V_WString" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_5" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="estimate" size="2048" source="CrossTab:Header:JSON_Name_6:estimate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_6:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_6:id:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_6:name:Concat:" type="V_WString" />
+                <Field name="note" size="2048" source="CrossTab:Header:JSON_Name_6:note:Concat:" type="V_WString" />
+                <Field name="unit" size="2048" source="CrossTab:Header:JSON_Name_6:unit:Concat:" type="V_WString" />
+                <Field name="value" size="2048" source="CrossTab:Header:JSON_Name_6:value:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: [JSON_Name_1] + &quot;_&quot; + [JSON_Name_2] + &quot;_&quot; + [JSON_Name_3] + &quot;.&quot; + [JSON_Name_5]" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="" />
+                <Field field="JSON_Name_2" order="" />
+                <Field field="JSON_Name_3" order="" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_2" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_3" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_5:auditorName:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_5:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_5:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_5:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_5:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_5:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_5:formattedValue:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_5:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_5:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_5:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_5:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_5:postalCode:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_5:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_5:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_5:publicationTitle:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_5:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_5:street:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="JSON_Name_1" />
+                <Field field="JSON_Name_2" />
+                <Field field="JSON_Name_3" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="41">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1746" y="1158" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="'general info'" field="entity_name" size="1073741823" type="V_WString" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[entity_name = 'general info'
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="elfCode" size="2048" source="CrossTab:Header:JSON_Name_1:elfCode:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_1:id:Concat:" type="V_WString" />
+                <Field name="lei" size="2048" source="CrossTab:Header:JSON_Name_1:lei:Concat:" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="CrossTab:Header:JSON_Name_1:northDataUrl:Concat:" type="V_WString" />
+                <Field name="status" size="2048" source="CrossTab:Header:JSON_Name_1:status:Concat:" type="V_WString" />
+                <Field name="subject" size="2048" source="CrossTab:Header:JSON_Name_1:subject:Concat:" type="V_WString" />
+                <Field name="entity_name" size="1073741823" source="Formula: 'general info'" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="42">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1758" y="1038" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="JSON_Name_1" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="JSON_Name_1" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Left_JSON_Name_2" selected="False" input="Left_" />
+                    <SelectField field="Right_JSON_Name_1" selected="True" rename="Right_JSON_Name_1" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_3:auditorName:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_3:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_3:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_3:publicationTitle:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="JSON_Name_1" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_3:auditorName:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_3:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_3:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_3:publicationTitle:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_2:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_2:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_2:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_2:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_2:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_2:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_2:id:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_2:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_2:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_2:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_2:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_2:postalCode:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_2:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_2:street:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="JSON_Name_1" order="" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_2:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_2:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_2:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_2:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_2:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_2:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_2:id:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_2:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_2:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_2:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_2:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_2:postalCode:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_2:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_2:street:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="JSON_Name_1" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="43">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1938" y="1038" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_3:auditorName:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_3:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_3:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_3:publicationTitle:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_2:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_2:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_2:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_2:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_2:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_2:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_2:id:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_2:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_2:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_2:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_2:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_2:postalCode:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_2:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_2:street:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+        </Node>
+        <Node ToolID="44">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="2046" y="1038" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="JSON_Name_1" selected="True" rename="entity_name" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field description="TextToColumns: Parsed from JSON_Name" name="entity_name" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="auditorName" size="2048" source="CrossTab:Header:JSON_Name_3:auditorName:Concat:" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="CrossTab:Header:JSON_Name_3:publicationDate:Concat:" type="V_WString" />
+                <Field name="publicationId" size="2048" source="CrossTab:Header:JSON_Name_3:publicationId:Concat:" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="CrossTab:Header:JSON_Name_3:publicationTitle:Concat:" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="CrossTab:Group:Concat:" type="V_WString" />
+                <Field name="city" size="2048" source="CrossTab:Header:JSON_Name_2:city:Concat:" type="V_WString" />
+                <Field name="consolidated" size="2048" source="CrossTab:Header:JSON_Name_2:consolidated:Concat:" type="V_WString" />
+                <Field name="country" size="2048" source="CrossTab:Header:JSON_Name_2:country:Concat:" type="V_WString" />
+                <Field name="date" size="2048" source="CrossTab:Header:JSON_Name_2:date:Concat:" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="CrossTab:Header:JSON_Name_2:formattedDate:Concat:" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="CrossTab:Header:JSON_Name_2:formattedValue:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_2:id:Concat:" type="V_WString" />
+                <Field name="lat" size="2048" source="CrossTab:Header:JSON_Name_2:lat:Concat:" type="V_WString" />
+                <Field name="legalForm" size="2048" source="CrossTab:Header:JSON_Name_2:legalForm:Concat:" type="V_WString" />
+                <Field name="lng" size="2048" source="CrossTab:Header:JSON_Name_2:lng:Concat:" type="V_WString" />
+                <Field name="name" size="2048" source="CrossTab:Header:JSON_Name_2:name:Concat:" type="V_WString" />
+                <Field name="postalCode" size="2048" source="CrossTab:Header:JSON_Name_2:postalCode:Concat:" type="V_WString" />
+                <Field name="state" size="2048" source="CrossTab:Header:JSON_Name_2:state:Concat:" type="V_WString" />
+                <Field name="street" size="2048" source="CrossTab:Header:JSON_Name_2:street:Concat:" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="CrossTab:Header:JSON_Name_2:uniqueKey:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="45">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1866" y="1170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="entity_name" selected="True" />
+                <SelectField field="elfCode" selected="True" />
+                <SelectField field="id" selected="True" />
+                <SelectField field="lei" selected="True" />
+                <SelectField field="northDataUrl" selected="True" />
+                <SelectField field="status" selected="True" />
+                <SelectField field="subject" selected="True" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: 'general info'" type="V_WString" />
+                <Field name="elfCode" size="2048" source="CrossTab:Header:JSON_Name_1:elfCode:Concat:" type="V_WString" />
+                <Field name="id" size="2048" source="CrossTab:Header:JSON_Name_1:id:Concat:" type="V_WString" />
+                <Field name="lei" size="2048" source="CrossTab:Header:JSON_Name_1:lei:Concat:" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="CrossTab:Header:JSON_Name_1:northDataUrl:Concat:" type="V_WString" />
+                <Field name="status" size="2048" source="CrossTab:Header:JSON_Name_1:status:Concat:" type="V_WString" />
+                <Field name="subject" size="2048" source="CrossTab:Header:JSON_Name_1:subject:Concat:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="46">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MultiFieldFormula.MultiFieldFormula">
+            <Position x="2694" y="642" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FieldType>Text</FieldType>
+              <Fields orderChanged="False">
+                <Field name="entity_name" />
+                <Field name="name" />
+                <Field name="company" />
+                <Field name="date" />
+                <Field name="description" />
+                <Field name="estimate" />
+                <Field name="formattedValue" />
+                <Field name="id" />
+                <Field name="note" />
+                <Field name="person" />
+                <Field name="roles" />
+                <Field name="type" />
+                <Field name="unit" />
+                <Field name="value" />
+                <Field name="consolidated" />
+                <Field name="formattedDate" />
+                <Field name="publicationDate" />
+                <Field name="publicationId" />
+                <Field name="auditorName" />
+                <Field name="city" />
+                <Field name="country" />
+                <Field name="lat" />
+                <Field name="legalForm" />
+                <Field name="lng" />
+                <Field name="postalCode" />
+                <Field name="publicationTitle" />
+                <Field name="state" />
+                <Field name="street" />
+                <Field name="Right_JSON_Name_1" />
+                <Field name="uniqueKey" />
+                <Field name="elfCode" />
+                <Field name="lei" />
+                <Field name="northDataUrl" />
+                <Field name="status" />
+                <Field name="subject" />
+                <Field name="*Unknown" />
+              </Fields>
+              <CopyOutput value="False" />
+              <Expression>if ([_CurrentField_])="" then null()
+else [_CurrentField_]
+endif</Expression>
+              <ChangeFieldType value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>if ([_CurrentField_])="" then null()
+else [_CurrentField_]
+endif</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="name" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="company" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="date" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="description" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="estimate" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="id" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="note" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="person" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="roles" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="type" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="unit" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="value" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="consolidated" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="publicationId" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="auditorName" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="city" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="country" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="lat" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="legalForm" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="lng" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="postalCode" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="state" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="street" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="elfCode" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="lei" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="status" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+                <Field name="subject" size="2048" source="Formula: if ([_CurrentField_])=&quot;&quot; then null()&#xA;else [_CurrentField_]&#xA;endif" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiFieldFormula" />
+        </Node>
+        <Node ToolID="47">
+          <GuiSettings>
+            <Position x="2610" y="642" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Check Box (135)">False</Value>
+              <Value name="Check Box (136)">False</Value>
+              <Value name="List Box (11)">"entity_name","name","company","date","description","estimate","formattedValue","id","note","person","roles","type","unit","value","consolidated","formattedDate","publicationDate","publicationId","auditorName","city","country","lat","legalForm","lng","postalCode","publicationTitle","state","street","Right_JSON_Name_1","uniqueKey","elfCode","lei","northDataUrl","status","subject"</Value>
+              <Value name="Check Box (84)">False</Value>
+              <Value name="Check Box (117)">False</Value>
+              <Value name="Check Box (15)">True</Value>
+              <Value name="Check Box (109)">False</Value>
+              <Value name="Check Box (122)">False</Value>
+              <Value name="Check Box (53)">False</Value>
+              <Value name="Check Box (58)">False</Value>
+              <Value name="Check Box (70)">False</Value>
+              <Value name="Check Box (77)">False</Value>
+              <Value name="Drop Down (81)">upper</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output26">
+              <RecordInfo>
+                <Field name="entity_name" size="1073741823" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="name" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="company" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="date" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="description" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="estimate" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="formattedValue" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="id" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="note" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="person" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="roles" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="type" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="unit" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="value" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="consolidated" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="formattedDate" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="publicationDate" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="publicationId" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="auditorName" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="city" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="country" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="lat" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="legalForm" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="lng" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="postalCode" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="publicationTitle" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="state" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="street" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field description="TextToColumns: Parsed from JSON_Name" name="Right_JSON_Name_1" size="1073741823" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="uniqueKey" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="elfCode" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="lei" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="northDataUrl" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="status" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+                <Field name="subject" size="2048" source="Formula: [_CurrentField_]" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro="Cleanse.yxmc" />
+        </Node>
+        <Node ToolID="48">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="2994" y="582" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\MSTEJS~1\AppData\Local\Temp\Engine_4020_d3b56a3317d94ec5bae847ba5d157944_\Engine_12264_77d670fb775742a9b640e04e7421eace_.yxdb</TempFile>
+              <TempFileDataProfiling />
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Profile</DefaultTab>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="53" Connection="Question" />
+      <Destination ToolID="54" Connection="Question" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="54" Connection="Action" />
+      <Destination ToolID="1" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="51" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="True" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="False" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="True" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="False" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="40" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="40" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="True" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="False" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#4">
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#5">
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="False" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="True" />
+      <Destination ToolID="35" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="True" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="False" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Output" />
+      <Destination ToolID="42" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="42" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="47" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Join" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Right" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="42" Connection="Join" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="42" Connection="Right" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output26" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>ControlParam.Control Parameter (53)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>json_parse_macro</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="False" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="54" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="False" />
+              <Destination>1/File</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (52)</Name>
+          <ToolId value="52" />
+          <Questions>
+            <Question>
+              <Type>ControlParam</Type>
+              <Description>Control Parameter (53)</Description>
+              <Name>Control Parameter (53)</Name>
+              <ToolId value="53" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <BatchMacro>
+        <OutputMode>AllSame</OutputMode>
+        <ControlParams>
+          <ControlParam>
+            <Name>Control Parameter (53)</Name>
+            <Description>Control Parameter (53)</Description>
+          </ControlParam>
+        </ControlParams>
+      </BatchMacro>
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="51" Selected="True" />
+        <Tool ToolId="47" Selected="True" />
+        <Tool ToolId="48" Selected="False" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

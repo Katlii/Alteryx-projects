@@ -1,0 +1,7 @@
+0. run Python script to produce JSON files
+1. prepare excel output file 
+   a. copy the file output_template.xlsx from V:\Shared drives\CZ CZ-FTS\07_Python_Projects\API_north_data\MS\02_OUTPUT into the same folder
+   b. rename the copy to output.xlsx
+2. run the app
+
+when the app finishes running, the prepared output file will be populated with the data from JSON files in the selected input folder
